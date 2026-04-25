@@ -1,10 +1,8 @@
 package com.ucluj.controller;
 
-import com.ucluj.dto.request.PlayerStatsDto;
-import com.ucluj.dto.request.ReplaceabilityDto;
-import com.ucluj.dto.request.TeamReplaceabilityReport;
-import org.apache.coyote.Response;
-import org.springframework.data.repository.query.Param;
+import com.ucluj.dto.PlayerStatsDto;
+import com.ucluj.dto.TeamReplaceabilityReport;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,9 +13,15 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/api")
+@RequiredArgsConstructor
 public class PlayerController {
 
-    private GeneralService service;
+    private final GeneralService service;
+
+    @GetMapping("/players")
+    public ResponseEntity<?> getAllPlayers() {
+        return ResponseEntity.ok(service.getAllForDropdown());
+    }
 
     @GetMapping("/player-stats/{playerId}")
     ResponseEntity<?> getPlayerData(@PathVariable Long playerId, @RequestParam(defaultValue = "5")  int n){

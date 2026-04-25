@@ -10,9 +10,11 @@ import java.util.List;
 
 public interface PlayerMatchRepository extends JpaRepository<PlayerMatch, Long> {
 
-    @Query("SELECT pm FROM PlayerMatch pm WHERE pm.player.id = :playerId ORDER BY pm.match_id DESC")
-    List<PlayerMatch> findRecentMatches(Long playerId, Pageable pageable);
+    @Query("SELECT pm FROM PlayerMatch pm WHERE pm.player.id = :playerId ORDER BY pm.matchId DESC")
+    List<PlayerMatch> findRecentMatches(@Param("playerId") Long playerId, Pageable pageable);
 
     @Query("SELECT pm FROM PlayerMatch pm WHERE pm.player.id IN :playerIds ORDER BY pm.matchDate DESC")
     List<PlayerMatch> findAllByPlayerIdIn(@Param("playerIds") List<Long> playerIds);
+
+    boolean existsByPlayerIdAndMatchId(Long playerId, Long matchId);
 }

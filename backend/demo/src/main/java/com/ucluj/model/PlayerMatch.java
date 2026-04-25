@@ -24,7 +24,9 @@ public class PlayerMatch {
     @JoinColumn(name="player_id")
     private Player player;
 
-    private Long match_id;
+    @Column(name = "match_id")
+    private Long matchId;
+
     private Long competitionId;
     private Long seasonId;
     private Long roundId;
